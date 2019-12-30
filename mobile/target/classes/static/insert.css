@@ -1,0 +1,18 @@
+@media print {
+ #ghostery-purple-box {
+  display:none !important
+ }
+}
+
+body{
+  background-color: greenyellow;
+}
+
+p{
+  color:red;
+}
+
+input{
+  border-radius: 10%;
+  color: red
+}

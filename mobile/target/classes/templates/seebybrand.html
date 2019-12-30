@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>See by brand</title>
+</head>
+
+<body>
+<h3>See By Brand</h3>
+<div id="app" >
+    Brand:<br>
+    <input type="text" name="Brand" v-model="Brand" id="Brand"><br>
+    <input type="submit" @click="see(Brand)" value="Submit">
+    <ul>
+        <li v-for="mobile in mobiles">{{mobile.Mode}} by {{mobile.Brand}} at Sno {{mobile.Sno}}</li>
+    </ul>
+    </div>
+</div>
+<br>
+<a href="/"> <button value="Press Me">Go To Menu</button></a>
+
+
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://vuejs.org/js/vue.js"></script>
+<script>
+
+var vm = new Vue ({
+  el: '#app',
+  data: {mobiles:null,
+    Brand: ''
+  },
+
+  methods: {
+    see: function(Brand) {
+      axios.get('/mobiles' +'/'+ Brand).then(function(response){
+				this.mobiles=response.data;
+			}.bind(this));
+    },
+  }
+  });
+
+</script>
+</body>
+</html>

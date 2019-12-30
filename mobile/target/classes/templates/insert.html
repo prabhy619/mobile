@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Insert</title>
+    <link href="insert.css" rel="stylesheet"/>
+</head>
+<body>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <h3>Insert a new Phone</h3>
+<script>
+
+class mobile{
+
+}
+
+jQuery(document).ready(function () {
+ showModels = function (str){
+        	if (str.length==0)
+        	{
+                    document.getElementById("point").innerHTML = "";
+			}
+			else
+			{
+			document.getElementById("point").innerHTML = "";
+
+		        var xmlhttp = new XMLHttpRequest();
+		        xmlhttp.onreadystatechange = function() {
+		            if (this.readyState == 4 && this.status == 200) {
+		                    var data = JSON.parse(this.responseText);
+		                    for(i=0;i<data.length;i++)
+                                {document.getElementById("point").innerHTML += (data[i].Mode+"<br>");}
+		            }
+	        };
+
+	        xmlhttp.open("GET", "/list/" + str, true);
+	        xmlhttp.send();
+        }
+		}
+    });
+
+
+
+    </script>
+<div id="app" >
+        <p>Brand:</p><br>
+        <input type="text" name="Brand" v-model="Brand" id="Brand" style="color:red" onblur="showModels(this.value);">
+    <br><div style="display:inline"id="listmodels">
+        <table>
+            <tr id="point"></tr>
+        </table>
+</div><br>
+            <p>Model:</p><br>
+
+        <input type="text"  name="Mode" v-model="Mode" id="Mode"><br>
+    <input type="submit" @click="createPost()" value="Submit" >
+    </div><br>
+<a href="/"> <button value="Press Me">Go To Menu</button></a>
+
+
+
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://vuejs.org/js/vue.js"></script>
+<script>
+
+var app = new Vue({
+    el:'#app',
+    data:{
+        Brand:'',
+        Mode:''
+    },
+    methods:{
+        createPost(){
+
+            var param= {
+                'Brand':this.Brand,
+                'Mode': this.Mode
+            };
+            axios({
+                method: 'post',
+                url: '/mobiles',
+                data: param,
+            })
+
+        }
+    }
+});
+
+
+    </script>
+</body>
+</html>

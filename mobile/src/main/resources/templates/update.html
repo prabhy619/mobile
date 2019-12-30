@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Insert</title>
+</head>
+<body>
+<h3>Update a record</h3>
+<div id="app" >
+    Sno:<br>
+    <input type="text" name="Sno" v-model="Sno" id="Sno"><br>
+    Brand:<br>
+    <input type="text" name="Brand" v-model="Brand" id="Brand"><br>
+    Model:<br>
+    <input type="text"  name="Mode" v-model="Mode" id="Mode"><br>
+    <input type="submit" @click="createPost()" value="Submit">
+</div>
+<br>
+<a href="/"> <button value="Press Me">Go To Menu</button></a>
+
+
+
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://vuejs.org/js/vue.js"></script>
+<script>
+
+var app = new Vue({
+    el:'#app',
+    data:{
+        Brand:'',
+        Mode:''
+    },
+    methods:{
+        createPost(){
+
+            var param= {
+                'Brand':this.Brand,
+                'Mode': this.Mode
+            };
+            axios({
+                method: 'put',
+                url: '/put/'+this.Sno,
+                data: param,
+            })
+        }
+    }
+});
+
+
+    </script>
+</body>
+</html>

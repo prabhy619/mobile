@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Row</title>
+</head>
+<body>
+    <div id="app" >
+        Sno:<br>
+        <input type="text" name="Sno" v-model="Sno" id="Sno"><br>
+        <input type="submit" @click="deletePost(Sno)" value="Submit">
+    </div><br>
+    <a href="/"> <button value="Press Me">Go To Menu</button></a>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://vuejs.org/js/vue.js"></script>
+    <script>
+
+var vm = new Vue ({
+  el: '#app',
+  data: {
+    Sno: ''
+  },
+
+  methods: {
+    deletePost: function(Sno) {
+      axios.delete('/mobiles' +'/'+ Sno)
+
+    },
+  }
+  });
+
+
+
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<html>
+<head>
+    <title>See All Mobiles</title>
+    <link href="allsee.css" rel="stylesheet"/>
+    <!-- Load required Bootstrap and BootstrapVue CSS -->
+
+</head>
+<body>
+<h1>Mobie</h1>
+
+<div id="root" class="modal-backdrop">
+    <table>
+        <tr  v-for="mobile in mobiles" @click.prevent="showModal(mobile)">
+            <td>  <button @click="showModal(mobile)">Show Details</button></td>
+            <td >{{mobile.sno}}</td>
+
+            <td colspan="40px">{{mobile.Mode}}</td>
+            <td colspan="10px">{{mobile.Brand}}</td>
+            <td colspan="10px">{{mobile.Price}}</td>
+            <td><button type="submit" value="delete" @click="deletePost(mobile.sno)">Delete</button> </td>
+        </tr>
+
+    </table>
+    <div id="mydata" class="w3-modal" v-show="isModalVisible">
+        <div class="w3-container">
+            <div class="w3-modal-content w3-card-4">
+                <div class="w3-container w3-teal">
+                   <span @click="isModalVisible=false"
+                         class="w3-button w3-display-topright">&times;</span>
+                    <h2>Edit window</h2>
+                </div>
+                <pre>       Enter Model       <input id="Mode" name="Mode" v-model='this.selectedItem.Mode' class="form-control"><br></pre>
+                <pre>       Enter Sno       <input  id="Sno" name="Sno" v-model='this.selectedItem.Sno' class="form-control"><br></pre>
+                <pre>       Enter Brand<input id="Brand" name="Brand"  v-model='this.selectedItem.Brand' class="form-control"><br></pre>
+        <br>
+                <div class="w3-container w3-teal">
+                    <p>
+                        <input type="submit"  @click="createPost()" value="Submit">
+
+                        <a href="#" @click="isModalVisible = false">Save Data</a></p>
+                </div>
+            </div>
+            </div>
+    </div>
+
+
+</div>
+<a href="/"> <button value="Press Me">Go To Menu</button></a>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://vuejs.org/js/vue.js"></script>
+
+
+<script>
+var app=new Vue({
+	el:'#root',
+	data:{timer:'',
+	mobiles:[],
+	mobi:{
+	    Brand:'',
+	    Mode:'',
+	    Sno:''
+	},
+	selectedItem:{},
+	isModalVisible: false,
+	Brand:'',
+	Mode:''
+	},
+	created: function() {
+    this.timer = setInterval(this.fetchMobiles, 5000);
+    Sno:''
+},
+	mounted(){
+		this.fetchMobiles();
+
+
+	},
+	methods:{
+
+  createPost(){
+  alert(Mode.value);
+            var param= {
+                Brand:Brand.value,
+                Mode: Mode.value,
+                   Sno:Sno.value
+            };
+            axios({
+                method: 'put',
+                url: '/put/'+Sno,
+                data: param,
+            });
+
+            this.close();
+        },
+
+	  close: function () {
+         this.$emit('close');
+         this.isModalVisible=false;
+     },
+     setFormData(item)
+     {
+         this.form.id=item.Mode;
+         this.form.name = item.Brand;
+     },
+     showModal (item) {
+         this.selectedItem = item;
+         Sno=item.Sno;
+         this.isModalVisible=true;
+       },
+
+	deletePost: function(Sno) {
+      axios.delete('/mobiles' +'/'+ Sno)
+
+    },
+		fetchMobiles(){
+			axios.get("/mobiles").then(function(response){
+				this.mobiles=response.data;
+			}.bind(this));
+		}
+	}
+});
+    </script>
+</body>
+</html>

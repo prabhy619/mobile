@@ -1,0 +1,1 @@
+mvn spring-boot:run -Drun.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=4000 -Dhttp.proxySet=true -Dhttp.proxyHost=10.0.50.3 -Dhttp.proxyPort=8080"
